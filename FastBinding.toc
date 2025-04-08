@@ -1,0 +1,7 @@
+## Interface: 11200
+## Author: CDNievas
+## Title: FastBinding
+## Notes: Mouseover keybinds for action bars
+## Version: 1.0
+utils.lua
+FastBinding.lua
