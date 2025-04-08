@@ -36,16 +36,18 @@ function GetBindingName(button, bongoed)
 
         if(bindingName == "MULTIACTIONBAR1BUTTON") then
             buttonNumber = tonumber(buttonNumber) + 12
+            bindingName = "ACTIONBUTTON"
         elseif (bindingName == "MULTIACTIONBAR2BUTTON") then
             buttonNumber = tonumber(buttonNumber) + 24
+            bindingName = "ACTIONBUTTON"
         elseif (bindingName == "MULTIACTIONBAR3BUTTON") then
             buttonNumber = tonumber(buttonNumber) + 36
+            bindingName = "ACTIONBUTTON"
         elseif (bindingName == "MULTIACTIONBAR4BUTTON") then
             buttonNumber = tonumber(buttonNumber) + 48
+            bindingName = "ACTIONBUTTON"
         else
         end
-
-        bindingName = "ACTIONBUTTON"
 
     end
         

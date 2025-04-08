@@ -2,6 +2,6 @@
 ## Author: CDNievas
 ## Title: FastBinding
 ## Notes: Mouseover keybinds for action bars
-## Version: 1.0
+## Version: 1.0.1
 utils.lua
 FastBinding.lua

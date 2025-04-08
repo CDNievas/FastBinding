@@ -1,78 +1,79 @@
-function BMsg(msg)
-	ChatFrame1:AddMessage(msg or 'nil', 0, 1, 0.4)
-end
+-- Setup globals
+local _G = _G or getfenv(0);
+local FastBinding = _G.FastBinding or {};
+_G.FastBinding = FastBinding;
 
-BindingButtonsAliases = {
-    ["ActionButton"] = "ACTIONBUTTON",
-    ["BActionButton"] = "ACTIONBUTTON",
-    ["MultiBarBottomLeftButton"] = "MULTIACTIONBAR1BUTTON",
-    ["MultiBarBottomRightButton"] = "MULTIACTIONBAR2BUTTON",
-    ["MultiBarRightButton"] = "MULTIACTIONBAR3BUTTON",
-    ["MultiBarLeftButton"] = "MULTIACTIONBAR4BUTTON",
-    ["ShapeshiftButton"] = "SHAPESHIFTBUTTON",
-    ["BClassBarButton"] = "SHAPESHIFTBUTTON",
-    ["PetActionButton"] = "BONUSACTIONBUTTON",
-};
+FastBinding.Enabled = false;
+FastBinding.Frame = CreateFrame("FRAME");
 
+function FastBinding.Frame:OnKeyDown(key)
+    local frame = GetMouseFocus();
 
-function IsActionFrame(frame)
-    local buttonName = _splitString(frame, "%d+");
-
-    if BindingButtonsAliases[buttonName] then
-        return true
+    if key == "ENTER" or key == "ESCAPE" then
+        FastBinding.Enable(false);
+    elseif key == "ALT" or key == "SHIFT" or key == "CTRL" then
     else
-        return false
+        if IsActionFrame(frame:GetName()) then
+            FastBinding.SetKeyToActionButton(key, frame:GetName());
+        end
     end
 
 end
 
-function GetBindingName(button, bongoed)
-    local buttonName = _splitString(button, "%d+");
-    local bindingName = BindingButtonsAliases[buttonName]
-    local buttonNumber = _splitString(button, "%a+")
+function FastBinding.SetKeyToActionButton(key, actionButton)
 
-    -- Bongos
-    if(bongoed) then
+    local bindingName = GetBindingName(actionButton, true);
 
-        if(bindingName == "MULTIACTIONBAR1BUTTON") then
-            buttonNumber = tonumber(buttonNumber) + 12
-        elseif (bindingName == "MULTIACTIONBAR2BUTTON") then
-            buttonNumber = tonumber(buttonNumber) + 24
-        elseif (bindingName == "MULTIACTIONBAR3BUTTON") then
-            buttonNumber = tonumber(buttonNumber) + 36
-        elseif (bindingName == "MULTIACTIONBAR4BUTTON") then
-            buttonNumber = tonumber(buttonNumber) + 48
-        else
-        end
-
-        bindingName = "ACTIONBUTTON"
-
+    if (IsShiftKeyDown()) then
+        key = "SHIFT-"..key;
     end
-        
-    return bindingName..buttonNumber;
+    if (IsControlKeyDown()) then
+        key = "CTRL-"..key;
+    end
+    if (IsAltKeyDown()) then
+        key = "ALT-"..key;
+    end
+
+    local usedKey = GetBindingKey(bindingName);
+    if usedKey then
+        SetBinding(usedKey);
+    end
+
+    if SetBinding(key, bindingName, 1) then
+        SaveBindings(2);
+        BMsg("Setted "..key.. " to "..bindingName);
+    end
 
 end
 
-function _splitString(str, seperatorPattern)
+function FastBinding.Enable(enable)
 
-    local tbl = {};
-    local pattern = "(.-)" .. seperatorPattern;
-    local lastEnd = 1;
-    local s, e, cap = string.find(str, pattern, 1);
-   
-    while s do
-        if s ~= 1 or cap ~= "" then
-            table.insert(tbl,cap);
-        end
-        lastEnd = e + 1;
-        s, e, cap = string.find(str, pattern, lastEnd);
-    end
-    
-    if lastEnd <= string.len(str) then
-        cap = string.sub(str, lastEnd);
-        table.insert(tbl, cap);
-    end
-    
-    return tbl[1]
+    FastBinding.Enabled = enable;
 
+    if enable then
+        FastBinding.Frame:EnableKeyboard(true);
+        FastBinding.Frame:SetScript("OnKeyDown", function()
+            local key = arg1;
+            this:OnKeyDown(key);
+        end);
+        BMsg("FastBinding enabled press ESCAPE or ENTER to disable");
+
+    else
+        FastBinding.Frame:EnableKeyboard(nil);
+        FastBinding.Frame:SetScript("OnKeyDown", nil);
+        BMsg("FastBinding disabled");
+
+    end
+
+end
+
+-- Set command action
+SLASH_FASTBINDING1 = "/fb";
+
+SlashCmdList["FASTBINDING"] = function(cmd)
+    if FastBinding.Enabled then
+        FastBinding.Enable(false)
+    else
+        FastBinding.Enable(true)
+    end
 end
