@@ -3,7 +3,7 @@ FastBinding.Frame = CreateFrame("Frame");
 
 FastBinding.Enabled = false;
 
-function FastBinding.Frame:OnKeyDown(key)
+function FastBinding.Frame:OnKeyUp(key)
 
     local frame = GetMouseFocus():GetName();
 
@@ -79,15 +79,15 @@ function FastBinding.Enable(enable)
 
     if enable then
         FastBinding.Frame:EnableKeyboard(true);
-        FastBinding.Frame:SetScript("OnKeyDown", function()
+        FastBinding.Frame:SetScript("OnKeyUp", function()
             local key = arg1;
-            this:OnKeyDown(key);
+            this:OnKeyUp(key);
         end);
         BMsg("FastBinding enabled press ENTER or ESCAPE (with mouse out of action bars) to disable");
 
     else
         FastBinding.Frame:EnableKeyboard(nil);
-        FastBinding.Frame:SetScript("OnKeyDown", nil);
+        FastBinding.Frame:SetScript("OnKeyUp", nil);
         BMsg("FastBinding disabled");
     end
 
