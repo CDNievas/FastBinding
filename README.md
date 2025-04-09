@@ -8,7 +8,7 @@ WoW Vanilla Addon to quickly bind things directly in action bars.
 
 ## How to install
 
-1. Download the last release as zip
+1. Download the [last release](https://github.com/CDNievas/FastBinding/releases/latest) as zip
 2. Extract the content to `WoW/Interface/AddOns/`
 3. Change the folder name from `FastBinding-main` to `FastBinding`
 
