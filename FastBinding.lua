@@ -54,7 +54,7 @@ function FastBinding.SetKeyToActionButton(key, actionButton)
     end
 
     if SetBinding(key, bindingName, 1) then
-        BMsg("Setted "..key.. " to "..bindingName);
+        BMsg("Set "..key.. " to "..bindingName);
     end
 
     SaveBindings(2);
