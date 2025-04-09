@@ -1,20 +1,34 @@
--- Setup globals
-local _G = _G or getfenv(0);
-local FastBinding = _G.FastBinding or {};
-_G.FastBinding = FastBinding;
+local FastBinding =  {};
+FastBinding.Frame = CreateFrame("Frame");
 
 FastBinding.Enabled = false;
-FastBinding.Frame = CreateFrame("FRAME");
 
 function FastBinding.Frame:OnKeyDown(key)
-    local frame = GetMouseFocus();
 
-    if key == "ENTER" or key == "ESCAPE" then
-        FastBinding.Enable(false);
-    elseif key == "ALT" or key == "SHIFT" or key == "CTRL" then
+    local frame = GetMouseFocus():GetName();
+
+    -- ENTER always disables FastBinding
+    if key == "ENTER" then
+        FastBinding.Enable(false)
+        return
+    end
+
+    -- Ignore modifier keys
+    if key == "ALT" or key == "SHIFT" or key == "CTRL" then
+        return
+    end
+
+    if IsActionFrame(frame) then
+        -- ESCAPE on ActionButton resets binding
+        if key == "ESCAPE" then
+            FastBinding.ResetActionButton(frame)
+        else
+            FastBinding.SetKeyToActionButton(key, frame)
+        end
     else
-        if IsActionFrame(frame:GetName()) then
-            FastBinding.SetKeyToActionButton(key, frame:GetName());
+        -- ESCAPE out ActionButton disables FB
+        if key == "ESCAPE" then
+            FastBinding.Enable(false)
         end
     end
 
@@ -40,8 +54,21 @@ function FastBinding.SetKeyToActionButton(key, actionButton)
     end
 
     if SetBinding(key, bindingName, 1) then
+        BMsg("Set "..key.. " to "..bindingName);
+    end
+
+    SaveBindings(2);
+
+end
+
+function FastBinding.ResetActionButton(actionButton)
+
+    local bindingName = GetBindingName(actionButton, true);
+    local usedKey = GetBindingKey(bindingName);
+    if usedKey then
+        SetBinding(usedKey);
+        BMsg("Removed "..usedKey.." from "..bindingName);
         SaveBindings(2);
-        BMsg("Setted "..key.. " to "..bindingName);
     end
 
 end
@@ -56,13 +83,12 @@ function FastBinding.Enable(enable)
             local key = arg1;
             this:OnKeyDown(key);
         end);
-        BMsg("FastBinding enabled press ESCAPE or ENTER to disable");
+        BMsg("FastBinding enabled press ENTER or ESCAPE (with mouse out of action bars) to disable");
 
     else
         FastBinding.Frame:EnableKeyboard(nil);
         FastBinding.Frame:SetScript("OnKeyDown", nil);
         BMsg("FastBinding disabled");
-
     end
 
 end

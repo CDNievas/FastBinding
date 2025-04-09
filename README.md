@@ -4,7 +4,7 @@ WoW Vanilla Addon to quickly bind things directly in action bars.
 
 - Tested with Custom Bars from [Bongos](https://github.com/mrrosh/Bongos) addon
 - Support for CTRL/ALT/SHIFT + Key binding
-- NOT support for Mouse button bindings (WIP)
+- NOT support for Mouse button bindings
 
 ## How to install
 
@@ -18,4 +18,5 @@ WoW Vanilla Addon to quickly bind things directly in action bars.
 - Put your mouse over the action bar button that you want to bind
 - Press the key or combination of keys that you want to use
 - Repeat with every button
-- When finished press ENTER or ESCAPE key to stop binding
+- Also you can unbind a key pressing ESCAPE over the action bar button
+- When finished press ENTER or ESCAPE (out of the action bar) key to stop binding
