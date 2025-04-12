@@ -2,15 +2,19 @@
 
 WoW Vanilla Addon to quickly bind things directly in action bars.
 
-- Tested with Custom Bars from [Bongos](https://github.com/mrrosh/Bongos) addon
 - Support for CTRL/ALT/SHIFT + Key binding
 - NOT support for Mouse button bindings
+
+> [!CAUTION]
+> If the UI Addon that you are using is not in [this list](./README.md#ui-addons-supported) I can't guarantee that *FastBinding* works as expected. Please check it before installing.
 
 ## How to install
 
 1. Download the last release as zip
-2. Extract the content to `WoW/Interface/AddOns/`
-3. Change the folder name from `FastBinding-main` to `FastBinding`
+2. Go to `WoW/Interface/AddOns/`
+3. Delete `FastBinding` folder if already exists (specially if you are updating the addon)
+4. Extract the zip content inside `WoW/Interface/AddOns/`
+5. Change the folder name from `FastBinding-main` to `FastBinding`
 
 ## How to use
 
@@ -20,3 +24,9 @@ WoW Vanilla Addon to quickly bind things directly in action bars.
 - Repeat with every button
 - Also you can unbind a key pressing ESCAPE over the action bar button
 - When finished press ENTER or ESCAPE (out of the action bar) key to stop binding
+
+## UI Addons supported
+
+- WoW Vanilla (No addon)
+- [Bongos](https://github.com/mrrosh/Bongos)
+- [DiscordActionBars](https://github.com/UndercityAddons-Vanilla/DiscordActionBars)
