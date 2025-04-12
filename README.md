@@ -6,7 +6,7 @@ WoW Vanilla Addon to quickly bind things directly in action bars.
 - NOT support for Mouse button bindings
 
 > [!CAUTION]
-> If the UI Addon that you are using is not in [this list](./README.md#ui-addons-supported) I can't guarantee that *FastBinding* works as expected. Please check it before installing.
+> If the UI Addon that you are using is not in [this list](./#ui-addons-supported) I can't guarantee that *FastBinding* works as expected. Please check it before installing.
 
 ## How to install
 
