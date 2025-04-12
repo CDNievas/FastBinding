@@ -1,80 +1,29 @@
-function BMsg(msg)
-	ChatFrame1:AddMessage(msg or 'nil', 0, 1, 0.4)
-end
-
-BindingButtonsAliases = {
-    ["ActionButton"] = "ACTIONBUTTON",
-    ["BActionButton"] = "ACTIONBUTTON",
-    ["MultiBarBottomLeftButton"] = "MULTIACTIONBAR1BUTTON",
-    ["MultiBarBottomRightButton"] = "MULTIACTIONBAR2BUTTON",
-    ["MultiBarRightButton"] = "MULTIACTIONBAR3BUTTON",
-    ["MultiBarLeftButton"] = "MULTIACTIONBAR4BUTTON",
-    ["ShapeshiftButton"] = "SHAPESHIFTBUTTON",
-    ["BClassBarButton"] = "SHAPESHIFTBUTTON",
-    ["PetActionButton"] = "BONUSACTIONBUTTON",
-};
-
-
-function IsActionFrame(frame)
-    local buttonName = _splitString(frame, "%d+");
-
-    if BindingButtonsAliases[buttonName] then
+function IsInArray(key, array)
+    if array[key] then
         return true
     else
         return false
     end
-
 end
 
-function GetBindingName(button, bongoed)
-    local buttonName = _splitString(button, "%d+");
-    local bindingName = BindingButtonsAliases[buttonName]
-    local buttonNumber = _splitString(button, "%a+")
+function SplitActionButton(str)
+    local i = string.len(str)
+    local num = ""
 
-    -- Bongos
-    if(bongoed) then
-
-        if(bindingName == "MULTIACTIONBAR1BUTTON") then
-            buttonNumber = tonumber(buttonNumber) + 12
-            bindingName = "ACTIONBUTTON"
-        elseif (bindingName == "MULTIACTIONBAR2BUTTON") then
-            buttonNumber = tonumber(buttonNumber) + 24
-            bindingName = "ACTIONBUTTON"
-        elseif (bindingName == "MULTIACTIONBAR3BUTTON") then
-            buttonNumber = tonumber(buttonNumber) + 36
-            bindingName = "ACTIONBUTTON"
-        elseif (bindingName == "MULTIACTIONBAR4BUTTON") then
-            buttonNumber = tonumber(buttonNumber) + 48
-            bindingName = "ACTIONBUTTON"
+    while i > 0 do
+        local c = string.sub(str, i, i)
+        if string.find(c, "%d") then
+            num = c .. num
+            i = i - 1
         else
+            break
         end
-
     end
-        
-    return bindingName..buttonNumber;
 
-end
-
-function _splitString(str, seperatorPattern)
-
-    local tbl = {};
-    local pattern = "(.-)" .. seperatorPattern;
-    local lastEnd = 1;
-    local s, e, cap = string.find(str, pattern, 1);
-   
-    while s do
-        if s ~= 1 or cap ~= "" then
-            table.insert(tbl,cap);
-        end
-        lastEnd = e + 1;
-        s, e, cap = string.find(str, pattern, lastEnd);
+    if num ~= "" then
+        local base = string.sub(str, 1, i)
+        return base, tonumber(num)
+    else
+        return str, nil
     end
-    
-    if lastEnd <= string.len(str) then
-        cap = string.sub(str, lastEnd);
-        table.insert(tbl, cap);
-    end
-    
-    return tbl[1]
-
 end
