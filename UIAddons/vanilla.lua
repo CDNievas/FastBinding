@@ -1,6 +1,6 @@
 vanilla_BindingButtonsAliases = {
     ["ActionButton"] = "ACTIONBUTTON",
-    ["BActionButton"] = "ACTIONBUTTON",
+    ["BonusActionButton"] = "ACTIONBUTTON",
     ["MultiBarBottomLeftButton"] = "MULTIACTIONBAR1BUTTON",
     ["MultiBarBottomRightButton"] = "MULTIACTIONBAR2BUTTON",
     ["MultiBarRightButton"] = "MULTIACTIONBAR3BUTTON",
