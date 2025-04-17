@@ -1,2 +1,2 @@
 FastBinding =  {};
-FastBinding.Debug = true;
+FastBinding.Debug = false;
