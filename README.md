@@ -8,6 +8,9 @@ WoW Vanilla Addon to quickly bind things directly in action bars.
 > [!CAUTION]
 > If the UI Addon that you are using is not in [UI Addons supported list](./#ui-addons-supported) I can't guarantee that *FastBinding* works as expected. Please check it before installing.
 
+> [!NOTE]
+> If you need help you can open a GitHub Issue describing your problem or contact me by Discord at [@Strakered](http://discordapp.com/users/strakered)
+
 ## How to install
 
 1. Download the [last release](https://github.com/CDNievas/FastBinding/releases/latest) as zip
