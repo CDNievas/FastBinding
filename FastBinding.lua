@@ -2,10 +2,20 @@ FastBinding.Frame = CreateFrame("Frame");
 FastBinding.Enabled = false;
 FastBinding.UIAddon = "WoW Vanilla";
 
+local FBDarkOverlay
+
 -- Plugin enabler
 function FastBinding.Enable(enable)
 
     FastBinding.Enabled = enable;
+
+    if not FBDarkOverlay then
+        FBDarkOverlay = CreateFrame("Frame", "FBDarkOverlay", UIParent)
+        FBDarkOverlay:SetAllPoints(UIParent)
+        FBDarkOverlay.texture = FBDarkOverlay:CreateTexture()
+        FBDarkOverlay.texture:SetAllPoints(FBDarkOverlay)
+        FBDarkOverlay.texture:SetTexture(0, 0, 0, 0.7)
+    end
 
     if enable then
         FastBinding.Frame:EnableKeyboard(true);
@@ -14,11 +24,13 @@ function FastBinding.Enable(enable)
             this:OnKeyDown(key);
         end);
         FBPrint.Chat("Enabled binding. Press ENTER or ESCAPE (with mouse out of action bars) to disable", "green");
+        FBDarkOverlay:Show()
 
     else
         FastBinding.Frame:EnableKeyboard(nil);
         FastBinding.Frame:SetScript("OnKeyDown", nil);
         FBPrint.Chat("Disabled binding", "green");
+        FBDarkOverlay:Hide()
     end
 
 end
