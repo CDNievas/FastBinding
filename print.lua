@@ -1,6 +1,6 @@
-Print = {}
+FBPrint = {}
 
-Print.Colors = {
+FBPrint.Colors = {
     ["red"]    = {1.0, 0.0, 0.0},
     ["green"]  = {0.0, 1.0, 0.0},
     ["blue"]   = {0.0, 0.0, 1.0},
@@ -14,14 +14,14 @@ Print.Colors = {
     ["purple"] = {0.5, 0.0, 0.5},
 }
 
-function Print.Chat(msg, color)
-    local c = Print.Colors[color] or Print.Colors["gray"]
+function FBPrint.Chat(msg, color)
+    local c = FBPrint.Colors[color] or FBPrint.Colors["gray"]
 	ChatFrame1:AddMessage("FastBinding - "..msg, c[1], c[2], c[3])
 end
 
-function Print.Debug(msg, color)
+function FBPrint.Debug(msg, color)
     if FastBinding.Debug then
-        local c = Print.Colors[color] or Print.Colors["red"]
+        local c = FBPrint.Colors[color] or FBPrint.Colors["red"]
 	    ChatFrame1:AddMessage("[DEBUG] - "..msg, c[1], c[2], c[3])
     end
 end

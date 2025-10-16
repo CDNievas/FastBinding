@@ -18,7 +18,7 @@ function IsAcceptedUIAddon(name)
 end
 
 function IsActionButton(button, uiAddon)
-    Print.Debug("Action button detected "..button);
+    FBPrint.Debug("Action button detected "..button);
     return AcceptedUIs[uiAddon]["IsActionButton"](button)
 end
 

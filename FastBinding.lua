@@ -13,12 +13,12 @@ function FastBinding.Enable(enable)
             local key = arg1;
             this:OnKeyDown(key);
         end);
-        Print.Chat("Enabled binding. Press ENTER or ESCAPE (with mouse out of action bars) to disable", "green");
+        FBPrint.Chat("Enabled binding. Press ENTER or ESCAPE (with mouse out of action bars) to disable", "green");
 
     else
         FastBinding.Frame:EnableKeyboard(nil);
         FastBinding.Frame:SetScript("OnKeyDown", nil);
-        Print.Chat("Disabled binding", "green");
+        FBPrint.Chat("Disabled binding", "green");
     end
 
 end
@@ -31,14 +31,14 @@ SlashCmdList["FASTBINDING"] = function(cmd)
     elseif(cmd == "debug") then
         if(FastBinding.Debug) then
             FastBinding.Debug = false
-            Print.Chat("Debug mode disabled")
+            FBPrint.Chat("Debug mode disabled")
         else
             FastBinding.Debug = true
-            Print.Chat("Debug mode enabled")
+            FBPrint.Chat("Debug mode enabled")
         end
     else
         if(FastBinding.Debug) then
-            Print.Debug(GetBindingAction(cmd))
+            FBPrint.Debug(GetBindingAction(cmd))
         end
     end
 end
@@ -57,11 +57,11 @@ FastBinding.Frame:SetScript("OnEvent", function()
     end
 
     if(FastBinding.Debug) then
-        Print.Chat("Loaded FastBinding as Debug", "yellow")
+        FBPrint.Chat("Loaded FastBinding as Debug", "yellow")
     else
-        Print.Chat("Loaded FastBinding", "yellow")
+        FBPrint.Chat("Loaded FastBinding", "yellow")
     end
-    Print.Chat("Detected '"..FastBinding.UIAddon.."' as UI Manager", "yellow")
+    FBPrint.Chat("Detected '"..FastBinding.UIAddon.."' as UI Manager", "yellow")
 
 end)
 
@@ -118,7 +118,7 @@ function FastBinding.SetKeyToActionButton(key, actionButton)
     end
 
     if SetBinding(key, bindingName, 1) then
-        Print.Chat("Set "..key.. " to "..bindingName);
+        FBPrint.Chat("Set "..key.. " to "..bindingName);
     end
 
     SaveBindings(2);
@@ -132,7 +132,7 @@ function FastBinding.ResetActionButton(actionButton)
     local usedKey = GetBindingKey(bindingName);
     if usedKey then
         SetBinding(usedKey);
-        Print.Chat("Removed "..usedKey.." from "..bindingName);
+        FBPrint.Chat("Removed "..usedKey.." from "..bindingName);
         SaveBindings(2);
     end
 
