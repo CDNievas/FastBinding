@@ -11,9 +11,8 @@ function discord_IsActionButton(button)
 end
 
 function discord_GetBindingName(button)
-    Print.Debug(button)
+    FBPrint.Debug(button)
     local buttonName, buttonNumber = SplitActionButton(button);
     local bindingName = discord_BindingButtonsAliases[buttonName]
     return bindingName..buttonNumber;
 end
-
